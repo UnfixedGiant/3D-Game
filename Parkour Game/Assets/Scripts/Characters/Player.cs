@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
+    // Afterlife dimension.
+    bool inAfterLife;
+
     Vector3 moveDirection;
     Rigidbody rb;
 
@@ -44,13 +47,11 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
 
         if(grounded)
-        {
-            rb.drag = groundDrag;
-        }
+        {rb.drag = groundDrag;}
         else
-        {
-            rb.drag = 0;
-        }
+        {rb.drag = 0;}
+
+
 
     }
 
@@ -103,6 +104,11 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void InAfterLife()
+    {
+
     }
 
 }
