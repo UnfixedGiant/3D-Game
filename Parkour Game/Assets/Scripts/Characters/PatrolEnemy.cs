@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public int health;
     public UnityEngine.AI.NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround;
@@ -31,13 +33,15 @@ public class EnemyController : MonoBehaviour
     {
 
     }
+
     private void ChasePlayer()
     {
-        
+        agent.destination = player.position;
     }
+
     private void AttackPlayer()
     {
-        
+        agent.destination = player.position;
     }
 
 
@@ -48,9 +52,25 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+
         // Check to see if the player is in the sight of the enemy and if they are in attack range aswell.
-        playerInSight = Physics.CheckSphere(transform.position, sightRange, player);
-        playerInAttack = Physics.CheckSphere(transform.position, attackRange, player);
+        if (distanceToPlayer <= sightRange)
+        {
+            playerInSight = true;
+        }
+        else 
+        {
+            playerInSight = false;
+        }
+        if (distanceToPlayer <= attackRange)
+        {
+            playerInAttack = true;
+        }
+        else
+        {
+            playerInAttack = false;
+        }
 
         if (!playerInSight && !playerInAttack) Patrolling();
         if (playerInSight && !playerInAttack) ChasePlayer();
