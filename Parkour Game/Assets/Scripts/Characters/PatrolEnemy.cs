@@ -31,9 +31,9 @@ public class EnemyController : MonoBehaviour
         player = GameObject.Find("Player").transform;
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
-
-    // Method to allow the enemy to patrol a certail area.
-    // SELECT AREA BETWEEN 2 RANDOM POINTS?
+    
+    // Method to allow the enemy to patrol a certain area.
+    // TODO :: SELECT AREA BETWEEN 2 RANDOM POINTS?
     private void Patrolling()
     {
 
