@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     float horizontalInput;
     float verticalInput;
+    
+    // Drag to make sure that the player does not slide around as much.
     public float groundDrag;
 
     // Jump
@@ -23,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     bool grounded;
 
     // Afterlife dimension.
+    // Added if game has a slight idea change with puzzles.
+    // MOB OF THE DEAD FOR REFERENCE PLAYER CAN GO DIFFERENT DIMENSION FOR PUZZLE SOLVING.
     bool inAfterLife;
 
     Vector3 moveDirection;
@@ -55,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    // This takes care of the players movement whether the player is moving around with "wasd" or if they are jumping.
+    // Jump also has a cooldown to make sure that the player cant jump while in mid air or spam jump.
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -86,11 +92,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // The SpeedControl function makes sure that the player is not able to above their movespeed.
     private void SpeedControl() 
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         if(flatVel.magnitude > moveSpeed){
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            // The x is limited since thats the direction that the player moves in.
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
@@ -106,9 +114,5 @@ public class PlayerMovement : MonoBehaviour
         readyToJump = true;
     }
 
-    private void InAfterLife()
-    {
-
-    }
 
 }

@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     // Variables
+
+    // Takes the players current orientation.
     public Transform orientation;
+    // Player will be able to set a sensitivity for bot their x and y.
+    // MAYBE JUST CHANGE TO 1 SENS FOR THE PLAYER.(COMPLICATED FOR NEW PLAYERS)
     public float sensX;
     public float sensY;
     float xRotation;
@@ -27,6 +31,7 @@ public class PlayerCamera : MonoBehaviour
 
         yRotation += inputX;
         xRotation -= inputY;
+        // Locks the camera so that it cant rotate over 90 degrees.
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
 
