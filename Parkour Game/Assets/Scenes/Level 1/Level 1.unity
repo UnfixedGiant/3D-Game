@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2485313863561531582, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
       propertyPath: m_TagString
-      value: dangerouspipe
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -719,11 +719,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8595773270889281944, guid: 9f59e3a3804e99d479f6c4b523410a71, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.68
+      value: 1.437
       objectReference: {fileID: 0}
     - target: {fileID: 8595773270889281944, guid: 9f59e3a3804e99d479f6c4b523410a71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.3800001
+      value: -1.012
       objectReference: {fileID: 0}
     - target: {fileID: 8595773270889281944, guid: 9f59e3a3804e99d479f6c4b523410a71, type: 3}
       propertyPath: m_LocalRotation.w

@@ -20,13 +20,12 @@ public class Pipe : MonoBehaviour, IInteractable
 
     public void Interact(){
         Debug.Log("Valve Interacted!");
+
         if (dangerouspipe != null)
         {
             BoxCollider collider = dangerouspipe.GetComponent<BoxCollider>();
-            if (collider != null)
-            {
-                Destroy(collider);
-            }
+            Debug.Log("Collider Destroyed");
+            collider.enabled = false;
         }
     }
 }
