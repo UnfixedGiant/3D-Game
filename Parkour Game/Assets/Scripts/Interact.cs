@@ -17,7 +17,7 @@ public class Interact : MonoBehaviour
 
     void Update()
     {
-        // This code sends out a racast to an object and if it is interactable with then the player interacts with it.
+        // This code sends out a raycast to an object and if it is interactable then the player interacts with it.
         if (Input.GetKeyDown(KeyCode.E))
         {
             Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
