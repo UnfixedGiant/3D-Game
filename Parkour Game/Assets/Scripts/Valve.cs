@@ -24,8 +24,11 @@ public class Pipe : MonoBehaviour, IInteractable
         if (dangerouspipe != null)
         {
             BoxCollider collider = dangerouspipe.GetComponent<BoxCollider>();
+            if (collider != null)
+            {
             Debug.Log("Collider Destroyed");
             collider.enabled = false;
+            }
         }
     }
 }

@@ -139,12 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da65fa04ee62f104cb92e89957b791dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dangerouspipe: {fileID: 39140182}
---- !u!1 &39140182 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2485313863561531582, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
-  m_PrefabInstance: {fileID: 918511179}
-  m_PrefabAsset: {fileID: 0}
+  dangerouspipe: {fileID: 2134959028}
 --- !u!1 &174595948
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,8 +462,20 @@ PrefabInstance:
       value: dangerouspipe
       objectReference: {fileID: 0}
     - target: {fileID: 2485313863561531582, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485313863561531582, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755198113522816829, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8535781257582349271, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -723,7 +730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8595773270889281944, guid: 9f59e3a3804e99d479f6c4b523410a71, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.012
+      value: -0.963
       objectReference: {fileID: 0}
     - target: {fileID: 8595773270889281944, guid: 9f59e3a3804e99d479f6c4b523410a71, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1351,6 +1358,11 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: f7b10ac3a7a9a2045b64b0da85f2e1b1, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &2134959028 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3755198113522816829, guid: 03c0fdcf18e0a2d4d97ed11eec69ae70, type: 3}
+  m_PrefabInstance: {fileID: 918511179}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2146071365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1437,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3550306646206895555, guid: a159a0ac503adb54297a828173547606, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.27
+      value: 1.09
       objectReference: {fileID: 0}
     - target: {fileID: 3550306646206895555, guid: a159a0ac503adb54297a828173547606, type: 3}
       propertyPath: m_LocalPosition.z
