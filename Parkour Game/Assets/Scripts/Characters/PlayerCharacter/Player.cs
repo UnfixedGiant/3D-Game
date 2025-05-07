@@ -24,15 +24,11 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
-    // Afterlife dimension.
-    // Added if game has a slight idea change with puzzles.
-    // MOB OF THE DEAD FOR REFERENCE PLAYER CAN GO DIFFERENT DIMENSION FOR PUZZLE SOLVING.
-    bool inAfterLife;
-
     Vector3 moveDirection;
     Rigidbody rb;
 
     // Methods.
+
 
     private void Start()
     {
@@ -43,9 +39,9 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
     }
-
     private void Update () 
     {
+
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
         MyInput();
         SpeedControl();
@@ -54,8 +50,6 @@ public class PlayerMovement : MonoBehaviour
         {rb.drag = groundDrag;}
         else
         {rb.drag = 0;}
-
-
 
     }
 
@@ -113,6 +107,5 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
     }
-
 
 }
