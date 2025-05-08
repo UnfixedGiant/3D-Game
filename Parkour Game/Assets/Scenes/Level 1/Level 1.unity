@@ -2576,8 +2576,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 421325125}
-  sensX: 700
-  sensY: 700
+  sensX: 800
+  sensY: 800
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.11666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 1b6470dd2b8703041b9fc36a96ad3ae9, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1073951578 stripped
 Transform:
@@ -5635,6 +5635,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 26
       objectReference: {fileID: 0}
+    - target: {fileID: 8469157616580054268, guid: c258f0063ebf09449b35e2957b50221f, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5804,8 +5808,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: jumpForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: moveSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: walkSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: groundDrag
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: crouchSpeed
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: sprintSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: crouchYScale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: jumpCooldown
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
       propertyPath: airMultiplier
-      value: 0.2
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323534946198738842, guid: a159a0ac503adb54297a828173547606, type: 3}
+      propertyPath: maxSlopeAngle
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3550306646206895555, guid: a159a0ac503adb54297a828173547606, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5883,6 +5923,22 @@ PrefabInstance:
     - target: {fileID: 4883602833227796997, guid: 3601eccbfa281d345a1739a38e281f37, type: 3}
       propertyPath: m_SelectedVertices.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883602833227796997, guid: 3601eccbfa281d345a1739a38e281f37, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[0].a
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883602833227796997, guid: 3601eccbfa281d345a1739a38e281f37, type: 3}
+      propertyPath: m_SelectedEdges.Array.data[0].b
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883602833227796997, guid: 3601eccbfa281d345a1739a38e281f37, type: 3}
+      propertyPath: m_SelectedVertices.Array.data[0]
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883602833227796997, guid: 3601eccbfa281d345a1739a38e281f37, type: 3}
+      propertyPath: m_SelectedVertices.Array.data[1]
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 5505161102220458089, guid: 3601eccbfa281d345a1739a38e281f37, type: 3}
       propertyPath: m_LocalPosition.x
