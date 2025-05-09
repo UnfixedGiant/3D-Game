@@ -2,27 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// This is just interacting with an object.
-// Called afterlife since it was going to be seperate dimension.
-// It removes objects in the scene which allows the player to move to other locations.
-// This can be used for objects such as doors.
-public class EnterAfterLife : MonoBehaviour, IInteractable
+public class OpenDoor : Interactable
 {
-    public GameObject afterLife;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private GameObject door;
+    private bool doorOpen;
 
-    // Update is called once per frame
-    void Update()
+    protected override void Interact()
     {
-        
-    }
-
-    public void Interact(){
-        afterLife.SetActive(false);
+        doorOpen = !doorOpen;
+        door.GetComponent<Animator>().SetBool("IsOpen", doorOpen);
     }
 }
