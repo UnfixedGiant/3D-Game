@@ -40,22 +40,4 @@ public class Interact : MonoBehaviour
             }
         }
     }
-
 }
-
-        // This code sends out a raycast to an object and if it is interactable then the player interacts with it.
-        
-            // Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
-            // if(Physics.Raycast(r, out RaycastHit hitinfo, InteractRange, mask))
-            // {
-            //     Debug.Log(mask);
-            //     if (Input.GetKeyDown(KeyCode.E))
-            //     {
-            //         if (hitinfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
-            //         {
-            //             interactObj.Interact();
-            //         }
-
-            //     }       
-
-            // }

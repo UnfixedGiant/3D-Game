@@ -110,9 +110,13 @@ public class PlayerMovement : MonoBehaviour
         Statehandler();
 
         if(grounded)
-        {rb.drag = groundDrag;}
+        {
+            rb.drag = groundDrag;
+        }
         else
-        {rb.drag = 0;}
+        {
+            rb.drag = 0;
+        }
 
     }
 
@@ -167,12 +171,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(!grounded)
         {
+            rb.AddForce(Vector3.down * 10f, ForceMode.Force);
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
         rb.useGravity = !OnSlope();
     }
 
-    // The SpeedControl function makes sure that the player is not able to above their movespeed.
+    // The SpeedControl function makes sure that the player is not able to move above their movespeed.
     private void SpeedControl() 
     {
         if (OnSlope() && !exitingSlope)
