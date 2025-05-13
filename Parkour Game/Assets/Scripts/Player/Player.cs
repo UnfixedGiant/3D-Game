@@ -39,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit slopeHit;
     private bool exitingSlope;
 
+    [Header("Health")]
+    public float health;
+    public float maxHealth;
 
 
     // Drag to make sure that the player does not slide around too much.
