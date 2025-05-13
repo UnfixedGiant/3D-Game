@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     // Variables.
     [Header("Keybinds")]
@@ -15,7 +15,16 @@ public class PlayerMovement : MonoBehaviour
     private float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
-    // Jump
+    public float slideSpeed;
+
+    private float desiredMoveSpeed;
+    private float lastDesiredMoveSpeed;
+
+    public float speedIncreaseMultiplier;
+    public float slopeIncreaseMultiplier;
+    // Drag to make sure that the player does not slide around too much.
+    public float groundDrag;
+
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -43,11 +52,6 @@ public class PlayerMovement : MonoBehaviour
     public float health;
     public float maxHealth;
 
-
-    // Drag to make sure that the player does not slide around too much.
-    public float groundDrag;
-
-
     public Transform orientation;
     float horizontalInput;
     float verticalInput;
@@ -65,32 +69,61 @@ public class PlayerMovement : MonoBehaviour
         walking,
         crouching,
         sprinting,
+        sliding,
         air
     }
+
+    public bool sliding;
 
 
     // Handles player movement states.
     private void Statehandler()
     {
+
+        if (sliding)
+        {
+            state = movementState.sliding;
+
+            if(OnSlope() && rb.velocity.y < 0.1f)
+            {
+                desiredMoveSpeed = slideSpeed;
+            }
+            else 
+            {
+                desiredMoveSpeed = sprintSpeed;
+            }
+        }
+
+
         if(Input.GetKey(crouchKey))
         {
             state = movementState.crouching;
-            moveSpeed = crouchSpeed;
+            desiredMoveSpeed = crouchSpeed;
         }
         else if (Input.GetKey(sprintKey) && grounded)
         {
             state = movementState.sprinting;
-            moveSpeed = sprintSpeed;
+            desiredMoveSpeed = sprintSpeed;
         }
         else if (grounded)
         {
             state = movementState.walking;
-            moveSpeed = walkSpeed;
+            desiredMoveSpeed = walkSpeed;
         }
         else 
         {
             state = movementState.air;
         }
+        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
+        {
+            StopAllCoroutines();
+            StartCoroutine(SmoothlyLerpMoveSpeed());
+        }
+        else
+        {
+            moveSpeed = desiredMoveSpeed;
+        }
+        lastDesiredMoveSpeed = desiredMoveSpeed;
     }
 
     private void Start()
@@ -123,6 +156,34 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private IEnumerator SmoothlyLerpMoveSpeed()
+    {
+        float time = 0;
+        float difference = Mathf.Abs(desiredMoveSpeed - moveSpeed);
+        float startValue = moveSpeed;
+
+        while (time < difference)
+        {
+            moveSpeed = Mathf.Lerp(startValue, desiredMoveSpeed, time / difference);
+            if (OnSlope())
+            {
+                float slopeAngle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                float slopeAngleIncrease = 1 + (slopeAngle / 90f);
+
+                time += Time.deltaTime * speedIncreaseMultiplier * slopeIncreaseMultiplier * slopeAngleIncrease; 
+            }
+            else
+            {
+                time += Time.deltaTime * speedIncreaseMultiplier;
+            }
+            yield return null;
+        }
+
+        moveSpeed = desiredMoveSpeed;
+    }
+
+
+
     // This takes care of the players movement whether the player is moving around with "wasd" or if they are jumping.
     // Jump also has a cooldown to make sure that the player cant jump while in mid air or spam jump.
     private void MyInput()
@@ -154,16 +215,19 @@ public class PlayerMovement : MonoBehaviour
     {
         // Movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
         // on Slope
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
 
             if (rb.velocity.y > 0)
             {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                rb.AddForce(Vector3.down * 20f, ForceMode.Force);
+            }
+            if (!sliding && rb.velocity.y > 0)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
         }
 
@@ -211,9 +275,9 @@ public class PlayerMovement : MonoBehaviour
         exitingSlope = false;
     }
 
-    private bool OnSlope()
+    public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.7f + 0.3f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
@@ -221,9 +285,9 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    private Vector3 GetSlopeMoveDirection()
+    public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
+        return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
     }
 
 }
