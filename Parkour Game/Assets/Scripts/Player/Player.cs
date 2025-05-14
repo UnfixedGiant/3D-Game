@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
 
         // When the player has to jump.
 
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && (grounded || OnSlope()))
         {
             readyToJump = false;
             
@@ -312,7 +312,7 @@ public class Player : MonoBehaviour
     // Checking to see if the player is on a slope.
     public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.8f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.4f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
