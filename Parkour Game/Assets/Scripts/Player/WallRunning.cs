@@ -41,12 +41,14 @@ public class WallRunning : MonoBehaviour
 
 
     // Update is called once per frame
+
+    // Check for walls around the player and handles state machine.
     void Update()
     {
         CheckForWall();
         StateMachine();
-    }
-
+    } 
+    // Wall running movement.
     private void FixedUpdate()
     {
         if(pm.wallrunning)
@@ -56,24 +58,27 @@ public class WallRunning : MonoBehaviour
     }
 
 
-
+    // Checks for walls by casting a ray to the right and to the left.
     private void CheckForWall()
     {
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallHit, wallCheckDistance, whatIsWall);
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallHit, wallCheckDistance, whatIsWall);
 
     }
-
+    // Checks to see if the player is above ground by
+    // Casting a ray downwards.
     private bool AboveGround()
     {
         return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, whatIsGround);
     }
 
+    // Start wall running if the player is not already wall running.
     private void StateMachine()
     {
         // Getting the inputs.
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        // Near a wall, moving forward and above the ground.
 
         if((wallLeft || wallRight) && verticalInput > 0 && AboveGround())
         {
@@ -85,18 +90,21 @@ public class WallRunning : MonoBehaviour
         }
         else
         {
+            // Stop wall running.
             if(pm.wallrunning)
                 StopWallRun();
         }
 
     }
     
-
+    // Wall running state.
     private void StartWallRun()
     {
         pm.wallrunning = true;
 
     }
+    // Handles wall running while moving.
+    // Maintains the players horizontal and forward vector while stopping vertical velocity.
     private void WallRunningMovement()
     {
         rb.useGravity = false;
@@ -105,14 +113,16 @@ public class WallRunning : MonoBehaviour
         Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
         Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
+        // Check to see if the wall forward direction aligns with the players orientation.
         if (Vector3.Dot(orientation.forward, wallForward) < 0)
         {
             wallForward = -wallForward;
         }
-
+        // Apply force to move the player along the wall.
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
     }
 
+    // Change the wall running state to false.
     private void StopWallRun()
     {
         pm.wallrunning = false;
