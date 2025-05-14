@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public float sprintSpeed;
     public float slideSpeed;
 
+    public float wallrunSpeed;
+
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
 
@@ -70,15 +72,23 @@ public class Player : MonoBehaviour
         crouching,
         sprinting,
         sliding,
+        wallrunning,
         air
     }
 
     public bool sliding;
+    public bool wallrunning;
 
 
     // Handles player movement states.
     private void Statehandler()
     {
+
+        if (wallrunning)
+        {
+            state = movementState.wallrunning;
+            desiredMoveSpeed = wallrunSpeed;
+        }
 
         if (sliding)
         {
@@ -196,7 +206,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-
+            
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -221,7 +231,7 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
 
-            if (rb.velocity.y > 0)
+            if (rb.velocity.y > 0 && !readyToJump)
             {
                 rb.AddForce(Vector3.down * 20f, ForceMode.Force);
             }
@@ -277,7 +287,7 @@ public class Player : MonoBehaviour
 
     public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.7f + 0.3f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.8f + 0.3f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;
