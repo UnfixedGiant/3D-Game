@@ -47,6 +47,10 @@ public class WallRunning : MonoBehaviour
     {
         CheckForWall();
         StateMachine();
+        if (pm.wallrunning && Input.GetKeyDown(pm.jumpKey))
+        {
+            WallJump();
+        }
     } 
     // Wall running movement.
     private void FixedUpdate()
@@ -55,6 +59,18 @@ public class WallRunning : MonoBehaviour
         {
             WallRunningMovement();
         }
+    }
+
+
+    private void WallJump()
+    {
+        Vector3 wallNormal = wallRight ? rightWallHit.normal : leftWallHit.normal;
+
+        Vector3 jumpDirection = wallNormal * 3f + Vector3.up;
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(jumpDirection.normalized * pm.jumpForce * 3, ForceMode.Impulse);
+
+        pm.wallrunning = false;
     }
 
 

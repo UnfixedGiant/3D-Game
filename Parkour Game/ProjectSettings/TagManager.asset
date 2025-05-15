@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AfterLife
   - dangerouspipe
+  - Enemy
   layers:
   - Default
   - TransparentFX

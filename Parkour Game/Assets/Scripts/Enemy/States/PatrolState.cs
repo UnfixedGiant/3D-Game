@@ -25,12 +25,15 @@ public class PatrolState : BaseState
 
     public void PatrolCycle()
     {
-        if(enemy.Agent.remainingDistance < 0.2f)
+        if (enemy.Agent.remainingDistance < 0.2f)
         {
             waitTimer += Time.deltaTime;
+            enemy.EnemyAnim.SetBool("isWalking", false);
+            enemy.EnemyAnim.SetBool("isIdle", true);
             if (waitTimer > 3)
             {
-                if(waypointIndex < enemy.path.waypoints.Count - 1)
+
+                if (waypointIndex < enemy.path.waypoints.Count - 1)
                 {
                     waypointIndex++;
                 }
@@ -40,7 +43,8 @@ public class PatrolState : BaseState
                 }
                 enemy.Agent.SetDestination(enemy.path.waypoints[waypointIndex].position);
                 waitTimer = 0;
-
+                enemy.EnemyAnim.SetBool("isWalking", true);
+                enemy.EnemyAnim.SetBool("isIdle", false);
             }
         }
     }

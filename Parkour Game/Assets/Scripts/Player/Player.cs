@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
 
         // When the player has to jump.
 
-        if (Input.GetKey(jumpKey) && readyToJump && (grounded || OnSlope()))
+        if (Input.GetKey(jumpKey) && readyToJump && (grounded || OnSlope()) && !wallrunning)
         {
             readyToJump = false;
             

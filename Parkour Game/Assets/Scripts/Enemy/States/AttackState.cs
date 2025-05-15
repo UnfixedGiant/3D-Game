@@ -27,6 +27,9 @@ public class AttackState : BaseState
         // Checking to see if the player can be seen.
         if (enemy.CanSeePlayer())
         {
+            enemy.EnemyAnim.SetBool("isWalking", false);
+            enemy.EnemyAnim.SetBool("isIdle", false);
+            enemy.EnemyAnim.SetBool("isAttacking", true);
             // Incrementing timers for moving and shooting.
             losePlayerTimer = 0;
             moveTimer += Time.deltaTime;
@@ -46,9 +49,10 @@ public class AttackState : BaseState
         else
         {
             losePlayerTimer += Time.deltaTime;
-            if(losePlayerTimer > 8)
+            if (losePlayerTimer > 8)
             {
                 stateMachine.changeState(new PatrolState());
+                enemy.EnemyAnim.SetBool("isAttacking", false);
             }
         }
     }
