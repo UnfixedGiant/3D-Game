@@ -94,7 +94,11 @@ public class Enemy : MonoBehaviour
 
     public void Death()
     {
-        Destroy(gameObject);
+        enemyAnim.SetTrigger("Death");
+        // Disable nav mesh agent.
+        agent.enabled = false;
+
+        Destroy(gameObject, 3f);
     }
 
 
