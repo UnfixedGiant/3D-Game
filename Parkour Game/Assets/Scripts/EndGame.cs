@@ -10,6 +10,8 @@ public class EndGame : MonoBehaviour
     public TextMeshProUGUI coins;
     void OnEnable()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         coins.text = "Coins collected: " + Player.totalCoins.ToString();
     }
     public void RestartGame()
