@@ -7,6 +7,6 @@ public class Flag : MonoBehaviour
 {
     public void NextLevel()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
