@@ -11,10 +11,14 @@ public class PlayerHealth : MonoBehaviour
     // variable for the healthbar.(Change size to simulate player losing/gaining health)
     public RectTransform healthBar;
 
+    public GameObject Player { get => player; }
+    private GameObject player;
+
     // Sets the players health to their max health.
     void Start()
     {
         health = maxHealth;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     // Clamps the players health between 0 and max health.
     // Updates the healthbar.
@@ -22,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     {
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdatehealthUI();
+
     }
     // Updates players health bar to represent the players actual health.
     public void UpdatehealthUI ()
@@ -37,6 +42,10 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        if (health <= 0)
+        {
+            Destroy(player);
+        }
     }
 
     // Handles the player gaining health.

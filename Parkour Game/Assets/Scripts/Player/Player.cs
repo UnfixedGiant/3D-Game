@@ -61,6 +61,9 @@ public class Player : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
+    [Header("Collectables")]
+    public float coins;
+
     // Checks to see whether the player is sliding and if they are wallrunning.
     public bool sliding;
     public bool wallrunning;
@@ -71,12 +74,17 @@ public class Player : MonoBehaviour
     // The different movement states.
     public enum  movementState
     {
+        sprinting,
         walking,
         crouching,
-        sprinting,
         sliding,
         wallrunning,
         air
+    }
+    
+    public void AddCoin()
+    {
+        coins += 1;
     }
 
 
@@ -87,54 +95,46 @@ public class Player : MonoBehaviour
         if (wallrunning)
         {
             state = movementState.wallrunning;
-            desiredMoveSpeed = wallrunSpeed;
+            moveSpeed = wallrunSpeed;
         }
 
-        if (sliding)
+
+        else if (sliding)
         {
             state = movementState.sliding;
             // Adjust the speed based on the slope.
-            if(OnSlope() && rb.velocity.y < 0.1f)
+            if (OnSlope() && rb.velocity.y < 0.1f)
             {
-                desiredMoveSpeed = slideSpeed;
+                moveSpeed = slideSpeed;
             }
-            else 
+            else
             {
-                desiredMoveSpeed = sprintSpeed;
+                moveSpeed = sprintSpeed;
             }
         }
 
-
-        if(Input.GetKey(crouchKey))
-        {
-            state = movementState.crouching;
-            desiredMoveSpeed = crouchSpeed;
-        }
         else if (Input.GetKey(sprintKey) && grounded)
         {
             state = movementState.sprinting;
-            desiredMoveSpeed = sprintSpeed;
+            moveSpeed = sprintSpeed;
+        }
+
+        else if (Input.GetKey(crouchKey))
+        {
+            state = movementState.crouching;
+            moveSpeed = crouchSpeed;
         }
         else if (grounded)
         {
             state = movementState.walking;
-            desiredMoveSpeed = walkSpeed;
-        }
-        else 
-        {
-            state = movementState.air;
-        }
-        // Smoother transition between speeds.
-        if (Mathf.Abs(desiredMoveSpeed - lastDesiredMoveSpeed) > 4f && moveSpeed != 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(SmoothlyLerpMoveSpeed());
+            moveSpeed = walkSpeed;
         }
         else
         {
-            moveSpeed = desiredMoveSpeed;
+            state = movementState.air;
+
         }
-        lastDesiredMoveSpeed = desiredMoveSpeed;
+
     }
 
 
@@ -147,6 +147,8 @@ public class Player : MonoBehaviour
         rb.freezeRotation = true;
 
         startYScale = transform.localScale.y;
+
+        coins = 0;
     }
 
     // Handles player movement
@@ -160,7 +162,7 @@ public class Player : MonoBehaviour
     private void Update () 
     {
 
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.4f, whatIsGround);
         MyInput();
         SpeedControl();
         Statehandler();
@@ -312,7 +314,7 @@ public class Player : MonoBehaviour
     // Checking to see if the player is on a slope.
     public bool OnSlope()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.4f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.5f))
         {
             float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle < maxSlopeAngle && angle != 0;

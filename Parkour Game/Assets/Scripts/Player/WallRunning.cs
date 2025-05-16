@@ -7,7 +7,6 @@ public class WallRunning : MonoBehaviour
     [Header("Wallrunning")]
     public LayerMask whatIsWall;
     public LayerMask whatIsGround;
-
     public float wallRunForce;
     public float maxWallRunTime;
 
@@ -51,16 +50,16 @@ public class WallRunning : MonoBehaviour
         {
             WallJump();
         }
-    } 
+    }
     // Wall running movement.
     private void FixedUpdate()
     {
-        if(pm.wallrunning)
+        if (pm.wallrunning)
         {
             WallRunningMovement();
         }
-    }
 
+    }
 
     private void WallJump()
     {
@@ -68,7 +67,7 @@ public class WallRunning : MonoBehaviour
 
         Vector3 jumpDirection = wallNormal * 3f + Vector3.up;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(jumpDirection.normalized * pm.jumpForce * 3, ForceMode.Impulse);
+        rb.AddForce(jumpDirection.normalized * pm.jumpForce * 5, ForceMode.Impulse);
 
         pm.wallrunning = false;
     }
