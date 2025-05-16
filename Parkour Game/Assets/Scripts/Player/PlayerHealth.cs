@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(player);
+            FindObjectOfType<DeathUI>().Show();
         }
     }
 

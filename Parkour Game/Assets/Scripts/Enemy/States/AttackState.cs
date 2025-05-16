@@ -40,7 +40,7 @@ public class AttackState : BaseState
                 Shoot();
             }
             // Moving the enemy to a random position after a random time.
-            if(moveTimer > Random.Range(3,7))
+            if(moveTimer > Random.Range(2,5))
             {
                 enemy.Agent.SetDestination(enemy.transform.position + (Random.insideUnitSphere * 5));
                 moveTimer = 0;
@@ -69,7 +69,7 @@ public class AttackState : BaseState
         Vector3 shootDirection = (enemy.Player.transform.position - selectedBarrel.transform.position).normalized;
         // Adding force to the bullet rigidbody.
         // Using Quaternion to add randomness to where the bullet travels to make sure it doesnt hit the player every time.
-        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-3f, 3f), Vector3.up) * shootDirection * 90;
+        bullet.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-1f, 1f), Vector3.up) * shootDirection * 90;
 
         shotTimer = 0;
         // Reset barrel after enemy has shot.

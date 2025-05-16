@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         wallrunning,
         air
     }
-    
+
     public void AddCoin()
     {
         coins += 1;
@@ -102,15 +102,8 @@ public class Player : MonoBehaviour
         else if (sliding)
         {
             state = movementState.sliding;
-            // Adjust the speed based on the slope.
-            if (OnSlope() && rb.velocity.y < 0.1f)
-            {
-                moveSpeed = slideSpeed;
-            }
-            else
-            {
-                moveSpeed = sprintSpeed;
-            }
+
+            moveSpeed = slideSpeed;
         }
 
         else if (Input.GetKey(sprintKey) && grounded)
@@ -251,11 +244,7 @@ public class Player : MonoBehaviour
             rb.AddForce(GetSlopeMoveDirection(moveDirection) * moveSpeed * 20f, ForceMode.Force);
 
             // This prevents upward velocity when jumping on slopes.
-            if (rb.velocity.y > 0 && !readyToJump)
-            {
-                rb.AddForce(Vector3.down * 20f, ForceMode.Force);
-            }
-            if (!sliding && rb.velocity.y > 0)
+            if (rb.velocity.y > 0)
             {
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             }
