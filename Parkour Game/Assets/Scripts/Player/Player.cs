@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
 
     [Header("Collectables")]
     public float coins;
+    public static float totalCoins = 0;
 
     // Checks to see whether the player is sliding and if they are wallrunning.
     public bool sliding;
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
     public void AddCoin()
     {
         coins += 1;
+        totalCoins = coins;
     }
 
 
@@ -141,7 +143,7 @@ public class Player : MonoBehaviour
 
         startYScale = transform.localScale.y;
 
-        coins = 0;
+        coins = totalCoins;
     }
 
     // Handles player movement
